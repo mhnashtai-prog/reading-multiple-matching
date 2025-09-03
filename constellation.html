@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flow State Reading - Test Interface</title>
+    <title>INTUNITY - Reading Comprehension Part 6</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a5f">
     
@@ -54,11 +54,32 @@
             z-index: 100;
         }
         
-        .logo-small {
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .brand-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            font-weight: 700;
             color: var(--accent-gold);
+            margin-bottom: -5px;
+        }
+        
+        .exam-info {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            opacity: 0.8;
+        }
+        
+        .author-credit {
+            position: absolute;
+            top: 5px;
+            right: 30px;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            opacity: 0.6;
         }
         
         .nav-controls {
@@ -88,6 +109,7 @@
             background: var(--accent-gold);
             color: var(--primary-blue);
             font-weight: 600;
+            min-width: 200px;
         }
 
         .test-selector:hover {
@@ -175,6 +197,7 @@
             transition: all 0.3s ease;
             position: relative;
             vertical-align: top;
+            font-weight: 600;
         }
         
         .gap:hover {
@@ -186,12 +209,14 @@
             border-color: var(--success-green);
             background: rgba(102, 187, 106, 0.2);
             border-style: solid;
+            color: var(--success-green);
         }
         
         .gap.error {
             border-color: var(--error-red);
             background: rgba(239, 83, 80, 0.2);
             animation: shake 0.5s ease-in-out;
+            color: var(--error-red);
         }
         
         @keyframes shake {
@@ -274,18 +299,20 @@
             transition: all 0.3s ease;
             user-select: none;
             position: relative;
+            transform: translateX(0) translateY(0) rotate(0deg);
         }
         
-        .paragraph-option:hover {
+        .paragraph-option:hover:not(.used):not(.dragging) {
             background: rgba(255, 255, 255, 0.1);
             border-color: var(--secondary-teal);
             transform: translateY(-2px);
         }
         
         .paragraph-option.dragging {
-            opacity: 0.7;
-            transform: rotate(5deg);
+            opacity: 0.8;
+            transform: rotate(2deg) scale(0.98);
             z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         .paragraph-option.used {
@@ -293,6 +320,7 @@
             background: rgba(102, 187, 106, 0.1);
             border-color: var(--success-green);
             cursor: not-allowed;
+            transform: translateX(0) translateY(0) rotate(0deg);
         }
         
         .paragraph-letter {
@@ -307,6 +335,11 @@
             font-weight: 600;
             margin-right: 10px;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .paragraph-option.used .paragraph-letter {
+            background: var(--success-green);
         }
         
         .paragraph-text {
@@ -334,7 +367,7 @@
             transition: all 0.3s ease;
         }
         
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             background: var(--accent-gold);
             transform: translateY(-2px);
         }
@@ -343,7 +376,7 @@
             background: var(--accent-gold);
         }
         
-        .btn.primary:hover {
+        .btn.primary:hover:not(:disabled) {
             background: #ffcc02;
         }
         
@@ -387,42 +420,6 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
         
-        /* Test Navigation */
-        .test-nav {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-left: 15px;
-        }
-
-        .test-nav button {
-            background: var(--card-glass);
-            border: 1px solid var(--card-border);
-            color: var(--text-light);
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .test-nav button:hover:not(:disabled) {
-            background: var(--secondary-teal);
-            transform: scale(1.1);
-        }
-
-        .test-nav button.active {
-            background: var(--accent-gold);
-            color: var(--primary-blue);
-        }
-
-        .test-nav button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -437,6 +434,12 @@
                 gap: 10px;
             }
             
+            .author-credit {
+                position: static;
+                order: 3;
+                margin-top: 10px;
+            }
+            
             .constellation-area {
                 padding: 20px;
             }
@@ -449,17 +452,8 @@
                 order: -1;
             }
             
-            .options-card {
-                max-height: none;
-            }
-            
             .paragraph-option {
                 padding: 12px;
-            }
-
-            .test-nav {
-                margin-left: 0;
-                margin-top: 10px;
             }
         }
         
@@ -495,12 +489,21 @@
             opacity: 0.6;
             pointer-events: none;
         }
+
+        /* Drag Zone Highlighting */
+        .gap.drag-over {
+            border-color: var(--accent-gold);
+            background: rgba(255, 213, 79, 0.3);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="logo-small">
-            <i class="fas fa-star"></i> Flow State Reading
+        <div class="author-credit">By Majid Nashai</div>
+        <div class="logo-section">
+            <div class="brand-title">INTUNITY</div>
+            <div class="exam-info">Reading Comprehension • Part 6</div>
         </div>
         <nav class="nav-controls">
             <a href="index.html" class="nav-btn">
@@ -625,9 +628,7 @@
                 currentTestId = testId;
                 
                 // Reset state for new test
-                userAnswers = new Array(6).fill(null);
-                usedOptions.clear();
-                
+                resetTestState();
                 initializeTest();
                 document.body.classList.remove('loading');
                 
@@ -639,13 +640,33 @@
             }
         }
 
+        // Reset all test state
+        function resetTestState() {
+            userAnswers = new Array(6).fill(null);
+            usedOptions.clear();
+            
+            // Clean up any existing drag state
+            document.querySelectorAll('.paragraph-option').forEach(option => {
+                option.classList.remove('dragging', 'used');
+                option.style.transform = '';
+                option.style.position = '';
+                option.style.zIndex = '';
+            });
+            
+            document.querySelectorAll('.gap').forEach(gap => {
+                gap.classList.remove('filled', 'error', 'drag-over');
+                gap.style.borderColor = '';
+                gap.textContent = `[${gap.dataset.gap}]`;
+            });
+        }
+
         // Initialize the interface
         function initializeTest() {
             if (!currentTest) return;
             
             document.getElementById('passage-title').textContent = currentTest.title;
             document.getElementById('passage-text').innerHTML = currentTest.passage;
-            document.getElementById('total-gaps').textContent = currentTest.answers.length;
+            document.getElementById('total-gaps').textContent = currentTest.answers ? currentTest.answers.length : 6;
             
             renderOptions();
             setupDragAndDrop();
@@ -665,16 +686,19 @@
                 div.dataset.option = index + 1;
                 
                 const letter = String.fromCharCode(65 + index);
+                // Handle both "A. text" and just "text" formats
+                const optionText = option.startsWith(`${letter}.`) ? option.substring(3) : option;
+                
                 div.innerHTML = `
                     <span class="paragraph-letter">${letter}</span>
-                    <span class="paragraph-text">${option.substring(3)}</span>
+                    <span class="paragraph-text">${optionText}</span>
                 `;
                 
                 container.appendChild(div);
             });
         }
 
-        // Setup drag and drop functionality
+        // Setup drag and drop functionality with better state management
         function setupDragAndDrop() {
             const options = document.querySelectorAll('.paragraph-option');
             const gaps = document.querySelectorAll('.gap');
@@ -682,71 +706,96 @@
             let draggedElement = null;
             
             options.forEach(option => {
-                option.addEventListener('dragstart', (e) => {
-                    if (option.classList.contains('used')) return false;
-                    
-                    draggedElement = option;
-                    option.classList.add('dragging');
-                    e.dataTransfer.effectAllowed = 'move';
-                });
+                // Clean up any existing listeners
+                option.removeEventListener('dragstart', handleDragStart);
+                option.removeEventListener('dragend', handleDragEnd);
                 
-                option.addEventListener('dragend', () => {
-                    option.classList.remove('dragging');
-                    draggedElement = null;
-                });
+                option.addEventListener('dragstart', handleDragStart);
+                option.addEventListener('dragend', handleDragEnd);
             });
             
             gaps.forEach(gap => {
-                gap.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    e.dataTransfer.dropEffect = 'move';
-                    gap.style.borderColor = 'var(--accent-gold)';
-                });
+                gap.removeEventListener('dragover', handleDragOver);
+                gap.removeEventListener('dragleave', handleDragLeave);
+                gap.removeEventListener('drop', handleDrop);
                 
-                gap.addEventListener('dragleave', () => {
-                    gap.style.borderColor = 'var(--secondary-teal)';
-                });
-                
-                gap.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    if (!draggedElement) return;
-                    
-                    const gapIndex = parseInt(gap.dataset.gap) - 1;
-                    const optionIndex = parseInt(draggedElement.dataset.option);
-                    
-                    // If gap is already filled, free the previous option
-                    if (userAnswers[gapIndex] !== null) {
-                        const prevOption = document.querySelector(`[data-option="${userAnswers[gapIndex]}"]`);
-                        if (prevOption) {
-                            prevOption.classList.remove('used');
-                            usedOptions.delete(userAnswers[gapIndex]);
-                        }
-                    }
-                    
-                    // Place the answer
-                    fillGap(gapIndex, optionIndex, draggedElement.textContent);
-                    
-                    // Mark option as used
-                    draggedElement.classList.add('used');
-                    usedOptions.add(optionIndex);
-                    
-                    // Reset gap styling
-                    gap.style.borderColor = 'var(--success-green)';
-                    
-                    // Success feedback
-                    showSuccessAnimation(gap);
-                    
-                    updateProgress();
-                });
+                gap.addEventListener('dragover', handleDragOver);
+                gap.addEventListener('dragleave', handleDragLeave);
+                gap.addEventListener('drop', handleDrop);
             });
+
+            function handleDragStart(e) {
+                if (this.classList.contains('used')) return false;
+                
+                draggedElement = this;
+                this.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.outerHTML);
+            }
+
+            function handleDragEnd(e) {
+                this.classList.remove('dragging');
+                // Force style cleanup
+                this.style.transform = '';
+                this.style.opacity = '';
+                draggedElement = null;
+            }
+
+            function handleDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                this.classList.add('drag-over');
+            }
+
+            function handleDragLeave(e) {
+                this.classList.remove('drag-over');
+            }
+
+            function handleDrop(e) {
+                e.preventDefault();
+                this.classList.remove('drag-over');
+                
+                if (!draggedElement) return;
+                
+                const gapIndex = parseInt(this.dataset.gap) - 1;
+                const optionIndex = parseInt(draggedElement.dataset.option);
+                
+                // If gap is already filled, free the previous option
+                if (userAnswers[gapIndex] !== null) {
+                    const prevOption = document.querySelector(`[data-option="${userAnswers[gapIndex]}"]`);
+                    if (prevOption) {
+                        prevOption.classList.remove('used');
+                        usedOptions.delete(userAnswers[gapIndex]);
+                    }
+                }
+                
+                // Place the answer
+                fillGap(gapIndex, optionIndex, draggedElement.textContent.trim());
+                
+                // Mark option as used
+                draggedElement.classList.add('used');
+                draggedElement.classList.remove('dragging');
+                usedOptions.add(optionIndex);
+                
+                // Clean up styles
+                draggedElement.style.transform = '';
+                
+                // Success feedback
+                showSuccessAnimation(this);
+                updateProgress();
+            }
         }
 
         // Fill a gap with an answer
         function fillGap(gapIndex, optionIndex, text) {
             userAnswers[gapIndex] = optionIndex;
             const gap = document.querySelector(`[data-gap="${gapIndex + 1}"]`);
-            gap.textContent = text;
+            
+            // Extract just the letter part for cleaner display
+            const letter = String.fromCharCode(64 + optionIndex);
+            gap.textContent = letter;
             gap.classList.add('filled');
+            gap.classList.remove('error');
         }
 
         // Show success animation
@@ -762,7 +811,9 @@
             document.body.appendChild(animation);
             
             setTimeout(() => {
-                document.body.removeChild(animation);
+                if (document.body.contains(animation)) {
+                    document.body.removeChild(animation);
+                }
             }, 1000);
         }
 
@@ -776,14 +827,15 @@
             document.getElementById('progress-fill').style.width = percentage + '%';
             
             if (completed === total) {
-                document.getElementById('check-btn').style.background = 'var(--success-green)';
-                document.getElementById('check-btn').innerHTML = '<i class="fas fa-check-circle"></i> Complete!';
+                const checkBtn = document.getElementById('check-btn');
+                checkBtn.style.background = 'var(--success-green)';
+                checkBtn.innerHTML = '<i class="fas fa-check-circle"></i> Complete!';
             }
         }
 
         // Check answers
         function checkAnswers() {
-            if (!currentTest) return;
+            if (!currentTest || !currentTest.answers) return;
             
             let correct = 0;
             const gaps = document.querySelectorAll('.gap');
@@ -803,40 +855,49 @@
             const score = Math.round((correct / userAnswers.length) * 100);
             
             // Show results
-            const resultMessage = `Cambridge B2 Part 6 Result:\nYou scored ${score}%!\nCorrect: ${correct}/${userAnswers.length}\n\n${score >= 70 ? '🎉 Excellent work!' : '💪 Keep practicing!'}`;
+            const resultMessage = `Cambridge B2 Part 6 Result:\nYou scored ${score}%!\nCorrect: ${correct}/${userAnswers.length}\n\n${score >= 70 ? 'Excellent work!' : 'Keep practicing!'}`;
             alert(resultMessage);
             
             if (score >= 70) {
-                document.getElementById('next-btn').disabled = false;
-                document.getElementById('next-btn').style.background = 'var(--success-green)';
+                const nextBtn = document.getElementById('next-btn');
+                nextBtn.disabled = false;
+                nextBtn.style.background = 'var(--success-green)';
+                
+                // Save completion status
+                saveTestCompletion(currentTestId, score);
+            }
+        }
+
+        // Save test completion
+        function saveTestCompletion(testId, score) {
+            try {
+                const completedTests = JSON.parse(localStorage.getItem('completedTests') || '{}');
+                completedTests[testId] = { completed: true, score: score, date: new Date().toISOString() };
+                localStorage.setItem('completedTests', JSON.stringify(completedTests));
+            } catch (e) {
+                console.log('Could not save progress');
             }
         }
 
         // Reset test
         function resetTest() {
-            userAnswers = new Array(6).fill(null);
-            usedOptions.clear();
-            
-            document.querySelectorAll('.gap').forEach(gap => {
-                gap.textContent = `[${gap.dataset.gap}]`;
-                gap.classList.remove('filled', 'error');
-                gap.style.borderColor = 'var(--secondary-teal)';
-            });
-            
-            document.querySelectorAll('.paragraph-option').forEach(option => {
-                option.classList.remove('used');
-            });
-            
+            resetTestState();
             resetControls();
             updateProgress();
+            
+            // Re-setup drag and drop
+            setupDragAndDrop();
         }
 
         // Reset control buttons
         function resetControls() {
-            document.getElementById('check-btn').style.background = 'var(--secondary-teal)';
-            document.getElementById('check-btn').innerHTML = '<i class="fas fa-check"></i> Check Answers';
-            document.getElementById('next-btn').disabled = true;
-            document.getElementById('next-btn').style.background = 'var(--accent-gold)';
+            const checkBtn = document.getElementById('check-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            checkBtn.style.background = 'var(--secondary-teal)';
+            checkBtn.innerHTML = '<i class="fas fa-check"></i> Check Answers';
+            nextBtn.disabled = true;
+            nextBtn.style.background = 'var(--accent-gold)';
         }
 
         // Load next test
@@ -851,7 +912,7 @@
         document.getElementById('next-btn').addEventListener('click', loadNextTest);
         document.getElementById('reset-btn').addEventListener('click', resetTest);
         document.getElementById('hint-btn').addEventListener('click', () => {
-            alert('💡 Cambridge B2 Part 6 Strategy:\n\n• Look for logical connections between sentences\n• Pay attention to pronouns and reference words\n• Check for chronological or cause-effect relationships\n• Consider the overall flow and coherence\n• One option will not be used!');
+            alert('Cambridge B2 Part 6 Strategy:\n\n• Look for logical connections between sentences\n• Pay attention to pronouns and reference words\n• Check for chronological or cause-effect relationships\n• Consider the overall flow and coherence\n• One option will not be used!');
         });
 
         // Test selector
@@ -862,7 +923,11 @@
 
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            loadTest(1); // Start with test 1
+            // Get test ID from URL or default to 1
+            const urlParams = new URLSearchParams(window.location.search);
+            const testId = parseInt(urlParams.get('test')) || 1;
+            document.getElementById('test-selector').value = testId;
+            loadTest(testId);
         });
     </script>
 </body>
