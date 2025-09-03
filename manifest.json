@@ -1,1 +1,99 @@
-
+{
+  "name": "Flow State Reading - Cambridge B2 Part 7",
+  "short_name": "Flow Reading",
+  "description": "Interactive Cambridge B2 Part 7 practice with constellation interface for immersive learning",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1e3a5f",
+  "theme_color": "#1e3a5f",
+  "orientation": "any",
+  "scope": "./",
+  "lang": "en",
+  "categories": ["education", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxjaXJjbGUgY3g9IjQ4IiBjeT0iNDgiIHI9IjQiIGZpbGw9IiNmZmQ1NGYiLz4KPGNpcmNsZSBjeD0iMTQ0IiBjeT0iNjQiIHI9IjMiIGZpbGw9IiMyNmE2OWEiLz4KPGNpcmNsZSBjeD0iNzIiIGN5PSIxMjgiIHI9IjUiIGZpbGw9IiM2NmJiNmEiLz4KPGNpcmNsZSBjeD0iMTUyIiBjeT0iMTM2IiByPSIzIiBmaWxsPSIjZmZkNTRmIi8+CjxjaXJjbGUgY3g9IjMyIiBjeT0iMTQ0IiByPSIyIiBmaWxsPSIjMjZhNjlhIi8+CjxjaXJjbGUgY3g9Ijk2IiBjeT0iNDAiIHI9IjYiIGZpbGw9IiNmZmZmZmYiLz4KPHN0YXIgY3g9Ijk2IiBjeT0iOTYiIHI9IjE2IiBmaWxsPSIjZmZkNTRmIiBvcGFjaXR5PSIwLjkiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQwX2xpbmVhcl8xXzEiIHgxPSIwIiB5MT0iMCIgeDI9IjE5MiIgeTI9IjE5MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMWUzYTVmIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBhMTYyOCIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxjaXJjbGUgY3g9IjEyOCIgY3k9IjEyOCIgcj0iMTAiIGZpbGw9IiNmZmQ1NGYiLz4KPGNpcmNsZSBjeD0iMzg0IiBjeT0iMTY4IiByPSI4IiBmaWxsPSIjMjZhNjlhIi8+CjxjaXJjbGUgY3g9IjE5MiIgY3k9IjM0NCIgcj0iMTIiIGZpbGw9IiM2NmJiNmEiLz4KPGNpcmNsZSBjeD0iNDA4IiBjeT0iMzY4IiByPSI4IiBmaWxsPSIjZmZkNTRmIi8+CjxjaXJjbGUgY3g9Ijg0IiBjeT0iMzg0IiByPSI2IiBmaWxsPSIjMjZhNjlhIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjEwNCIgcj0iMTYiIGZpbGw9IiNmZmZmZmYiLz4KPHBvbHlnb24gcG9pbnRzPSIyNTYsMjE2IDI4OCwyODAuOCAzNTkuMiwyODAuOCAzMDMuNiwzMjQgMzIwLDM5NiAyNTYsMzUyIDEOMiwzOTYgMjA4LjQsMzI0IDE1Mi44LDI4MC44IDIyNCwyODAuOCIgZmlsbD0iI2ZmZDU0ZiIgb3BhY2l0eT0iMC45Ii8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSI1MTIiIHkyPSI1MTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzFlM2E1ZiIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYTE2MjgiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K",
+      "sizes": "512x512", 
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://via.placeholder.com/540x720/1e3a5f/ffffff?text=Constellation+Interface",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Constellation interface for paragraph matching"
+    },
+    {
+      "src": "https://via.placeholder.com/720x540/1e3a5f/ffffff?text=Progress+Dashboard", 
+      "sizes": "720x540",
+      "type": "image/png", 
+      "form_factor": "wide",
+      "label": "Progress tracking and achievement system"
+    }
+  ],
+  "features": [
+    "Cross Platform",
+    "fast",
+    "simple"
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"  
+  },
+  "file_handlers": [
+    {
+      "action": "./",
+      "accept": {
+        "application/json": [".json"]
+      }
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+flowreading",
+      "url": "./?test=%s"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start Practice",
+      "short_name": "Practice",
+      "description": "Jump straight into B2 Part 7 practice",
+      "url": "./constellation.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9IiMyNmE2OWEiLz4KPHA+PHRleHQgZm9udC1zaXplPSI0OCIgZmlsbD0iI2ZmZmZmZiI+8J+agDwvdGV4dD48L3A+Cjwvc3ZnPgo=",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "View Progress",
+      "short_name": "Progress", 
+      "description": "Check your learning progress and achievements",
+      "url": "./progress.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9IiNmZmQ1NGYiLz4KPHA+PHRleHQgZm9udC1zaXplPSI0OCIgZmlsbD0iIzFlM2E1ZiI+8J+TijwvdGV4dD48L3A+Cjwvc3ZnPgo=",
+          "sizes": "96x96", 
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}
