@@ -2,7 +2,7 @@
   "appInfo": {
     "name": "Flow State Reading",
     "version": "1.0.0",
-    "description": "Interactive Cambridge B2 Part 7 practice with constellation interface"
+    "description": "Interactive Cambridge B2 Part 6 practice with constellation interface"
   },
   "settings": {
     "difficulty": "adaptive",
@@ -15,182 +15,122 @@
   "tests": [
     {
       "id": 1,
-      "title": "Social Media and Mental Health",
-      "category": "Technology & Society",
-      "difficulty": "intermediate",
-      "estimatedTime": "15 minutes",
-      "description": "Explore the complex relationship between social media usage and teenager mental health.",
-      "keywords": ["social media", "mental health", "teenagers", "digital wellness"],
-      "unlocked": true,
-      "constellation": {
-        "theme": "digital",
-        "starColor": "#26a69a",
-        "bgGradient": ["#1e3a5f", "#0a1628"]
-      }
-    },
-    {
-      "id": 2,
-      "title": "Climate Activism Goes Digital",
-      "category": "Environment & Technology",
+      "title": "Breaking Barriers: The Blind Runner's Journey",
+      "category": "Sports & Overcoming Challenges",
       "difficulty": "intermediate",
       "estimatedTime": "12 minutes",
-      "description": "How young climate activists use digital tools to organize global movements.",
-      "keywords": ["climate change", "activism", "digital organizing", "youth movement"],
+      "description": "Follow the inspiring story of a blind marathon runner who learned to navigate independently.",
+      "keywords": ["disability", "running", "independence", "determination"],
       "unlocked": true,
       "constellation": {
-        "theme": "nature",
+        "theme": "inspiration",
         "starColor": "#66bb6a",
         "bgGradient": ["#1b5e20", "#2e7d32"]
       }
     },
     {
-      "id": 3,
-      "title": "Gaming Culture and Identity",
-      "category": "Digital Culture",
-      "difficulty": "advanced",
-      "estimatedTime": "18 minutes",
-      "description": "The role of gaming communities in shaping modern teenage identity and relationships.",
-      "keywords": ["gaming", "identity", "online communities", "esports"],
-      "unlocked": false,
-      "constellation": {
-        "theme": "cyber",
-        "starColor": "#ff6b6b",
-        "bgGradient": ["#4a148c", "#6a1b9a"]
-      }
-    },
-    {
-      "id": 4,
-      "title": "Digital Wellness and Screen Time",
-      "category": "Health & Technology",
+      "id": 2,
+      "title": "Icon of Dreams: The Hollywood Sign Story",
+      "category": "Culture & Entertainment",
       "difficulty": "intermediate",
-      "estimatedTime": "14 minutes",
-      "description": "Strategies for maintaining mental health in an increasingly connected world.",
-      "keywords": ["digital wellness", "screen time", "mindfulness", "technology balance"],
-      "unlocked": false,
+      "estimatedTime": "13 minutes",
+      "description": "Discover the history and protection of the world's most famous entertainment landmark.",
+      "keywords": ["Hollywood", "entertainment", "cultural symbols", "tourism"],
+      "unlocked": true,
       "constellation": {
-        "theme": "wellness",
+        "theme": "entertainment",
         "starColor": "#ffd54f",
         "bgGradient": ["#e65100", "#ff9800"]
       }
     },
     {
-      "id": 5,
-      "title": "Future Careers in AI and Automation",
-      "category": "Career & Technology",
-      "difficulty": "advanced",
-      "estimatedTime": "16 minutes",
-      "description": "How artificial intelligence is reshaping the job market for the next generation.",
-      "keywords": ["artificial intelligence", "automation", "future careers", "job market"],
-      "unlocked": false,
+      "id": 3,
+      "title": "Beat the Clock: How Music Boosts Athletic Performance",
+      "category": "Health & Performance",
+      "difficulty": "intermediate",
+      "estimatedTime": "14 minutes",
+      "description": "Explore the scientific connection between music and athletic performance enhancement.",
+      "keywords": ["music", "running", "performance", "sports psychology"],
+      "unlocked": true,
       "constellation": {
-        "theme": "futuristic",
-        "starColor": "#00bcd4",
-        "bgGradient": ["#006064", "#00838f"]
+        "theme": "rhythm",
+        "starColor": "#e91e63",
+        "bgGradient": ["#880e4f", "#c2185b"]
       }
     },
     {
-      "id": 6,
-      "title": "Cultural Identity in Global Digital Spaces",
-      "category": "Culture & Identity",
+      "id": 4,
+      "title": "Life in the Fast Lane: A Formula One Champion's Story", 
+      "category": "Sports & Excellence",
       "difficulty": "advanced",
-      "estimatedTime": "17 minutes",
-      "description": "How young people maintain cultural identity while participating in global online communities.",
-      "keywords": ["cultural identity", "globalization", "digital communities", "multiculturalism"],
-      "unlocked": false,
+      "estimatedTime": "15 minutes",
+      "description": "Inside the meticulous world of professional racing and the pursuit of perfection.",
+      "keywords": ["Formula One", "racing", "perfectionism", "professional sports"],
+      "unlocked": true,
       "constellation": {
-        "theme": "cultural",
+        "theme": "speed",
+        "starColor": "#ff6b6b",
+        "bgGradient": ["#4a148c", "#6a1b9a"]
+      }
+    },
+    {
+      "id": 5,
+      "title": "Game Changer: Why Video Games Deserve Respect",
+      "category": "Digital Culture & Media",
+      "difficulty": "advanced",
+      "estimatedTime": "16 minutes", 
+      "description": "A compelling argument for recognizing video games as legitimate cultural media.",
+      "keywords": ["video games", "digital culture", "media criticism", "entertainment industry"],
+      "unlocked": true,
+      "constellation": {
+        "theme": "gaming",
         "starColor": "#9c27b0",
         "bgGradient": ["#4a148c", "#7b1fa2"]
       }
     },
     {
-      "id": 7,
-      "title": "Space Exploration and the Next Generation",
-      "category": "Science & Future",
+      "id": 6,
+      "title": "Finding Your Voice: Comedy Lessons for Public Speaking",
+      "category": "Personal Development",
       "difficulty": "intermediate",
-      "estimatedTime": "13 minutes",
-      "description": "How space technology and exploration inspire and shape teenage aspirations.",
-      "keywords": ["space exploration", "STEM", "Mars colonization", "space technology"],
-      "unlocked": false,
+      "estimatedTime": "14 minutes",
+      "description": "How stand-up comedy techniques can transform your presentation skills.",
+      "keywords": ["public speaking", "comedy", "confidence", "performance skills"],
+      "unlocked": true,
       "constellation": {
-        "theme": "space",
+        "theme": "performance",
+        "starColor": "#ff9800",
+        "bgGradient": ["#e65100", "#f57c00"]
+      }
+    },
+    {
+      "id": 7,
+      "title": "Record Breakers: The Science of Achieving the Impossible",
+      "category": "Achievement & Goals",
+      "difficulty": "intermediate", 
+      "estimatedTime": "13 minutes",
+      "description": "The psychology and strategy behind breaking world records and achieving excellence.",
+      "keywords": ["world records", "achievement", "goal setting", "excellence"],
+      "unlocked": true,
+      "constellation": {
+        "theme": "achievement",
         "starColor": "#ffc107",
         "bgGradient": ["#1a237e", "#3f51b5"]
       }
     },
     {
       "id": 8,
-      "title": "Sustainable Living for Digital Natives",
-      "category": "Environment & Lifestyle",
+      "title": "Ocean Mysteries: The Romance of Messages in Bottles",
+      "category": "Adventure & Discovery",
       "difficulty": "intermediate",
-      "estimatedTime": "15 minutes",
-      "description": "How teenagers integrate environmental consciousness with modern digital lifestyles.",
-      "keywords": ["sustainability", "eco-friendly", "digital natives", "green technology"],
-      "unlocked": false,
+      "estimatedTime": "12 minutes",
+      "description": "The fascinating hobby of finding and connecting through messages washed ashore.",
+      "keywords": ["ocean", "messages", "connection", "adventure"],
+      "unlocked": true,
       "constellation": {
-        "theme": "eco",
-        "starColor": "#4caf50",
-        "bgGradient": ["#1b5e20", "#388e3c"]
-      }
-    },
-    {
-      "id": 9,
-      "title": "Mental Health Support in Digital Age",
-      "category": "Health & Society",
-      "difficulty": "advanced",
-      "estimatedTime": "19 minutes",
-      "description": "Online mental health resources and the changing landscape of psychological support.",
-      "keywords": ["mental health", "online therapy", "digital support", "psychological wellbeing"],
-      "unlocked": false,
-      "constellation": {
-        "theme": "healing",
-        "starColor": "#e91e63",
-        "bgGradient": ["#880e4f", "#c2185b"]
-      }
-    },
-    {
-      "id": 10,
-      "title": "Creativity and Technology Convergence",
-      "category": "Arts & Technology",
-      "difficulty": "advanced",
-      "estimatedTime": "16 minutes",
-      "description": "How digital tools are transforming creative expression and artistic collaboration.",
-      "keywords": ["digital art", "creativity", "technology", "artistic collaboration"],
-      "unlocked": false,
-      "constellation": {
-        "theme": "creative",
-        "starColor": "#ff9800",
-        "bgGradient": ["#e65100", "#f57c00"]
-      }
-    },
-    {
-      "id": 11,
-      "title": "Global Citizenship and Digital Activism",
-      "category": "Civic Engagement",
-      "difficulty": "advanced",
-      "estimatedTime": "18 minutes",
-      "description": "How young people use digital platforms to engage in global civic and social issues.",
-      "keywords": ["global citizenship", "digital activism", "social justice", "civic engagement"],
-      "unlocked": false,
-      "constellation": {
-        "theme": "global",
-        "starColor": "#3f51b5",
-        "bgGradient": ["#1a237e", "#303f9f"]
-      }
-    },
-    {
-      "id": 12,
-      "title": "Innovation and Entrepreneurship Mindset",
-      "category": "Business & Innovation",
-      "difficulty": "advanced",
-      "estimatedTime": "20 minutes",
-      "description": "How digital natives approach innovation, startups, and entrepreneurial thinking.",
-      "keywords": ["entrepreneurship", "innovation", "startups", "business mindset"],
-      "unlocked": false,
-      "constellation": {
-        "theme": "innovation",
-        "starColor": "#607d8b",
-        "bgGradient": ["#263238", "#455a64"]
+        "theme": "ocean",
+        "starColor": "#00bcd4",
+        "bgGradient": ["#006064", "#00838f"]
       }
     }
   ],
@@ -206,7 +146,7 @@
       "id": "perfect_score",
       "name": "Perfect Alignment",
       "description": "Score 100% on any test",
-      "icon": "💫",
+      "icon": "💫", 
       "points": 250
     },
     {
@@ -218,7 +158,7 @@
     },
     {
       "id": "consistency",
-      "name": "Steady Navigator",
+      "name": "Steady Navigator", 
       "description": "Complete 5 tests in a row",
       "icon": "🧭",
       "points": 300
@@ -229,90 +169,48 @@
       "description": "Average confidence level above 4.0 for 3 tests",
       "icon": "🎯",
       "points": 150
-    },
-    {
-      "id": "comeback_kid",
-      "name": "Resilient Learner",
-      "description": "Improve from below 50% to above 80%",
-      "icon": "💪",
-      "points": 200
-    },
-    {
-      "id": "helper",
-      "name": "Hint Minimalist",
-      "description": "Complete 3 tests without using hints",
-      "icon": "🧠",
-      "points": 180
-    },
-    {
-      "id": "complete_category",
-      "name": "Category Master",
-      "description": "Complete all tests in one category",
-      "icon": "👑",
-      "points": 400
-    },
-    {
-      "id": "all_tests",
-      "name": "Cosmic Champion",
-      "description": "Complete all 12 tests",
-      "icon": "🏆",
-      "points": 1000
-    },
-    {
-      "id": "perfect_week",
-      "name": "Seven-Day Streak",
-      "description": "Practice for 7 consecutive days",
-      "icon": "🔥",
-      "points": 350
     }
   ],
   "categories": [
     {
-      "name": "Technology & Society",
-      "color": "#26a69a",
-      "description": "Explore how technology shapes modern social interactions"
-    },
-    {
-      "name": "Environment & Technology", 
+      "name": "Sports & Overcoming Challenges",
       "color": "#66bb6a",
-      "description": "The intersection of environmental awareness and digital tools"
+      "description": "Stories of determination and athletic achievement"
     },
     {
-      "name": "Digital Culture",
-      "color": "#ff6b6b", 
-      "description": "Online communities, gaming, and digital identity formation"
-    },
-    {
-      "name": "Health & Technology",
+      "name": "Culture & Entertainment", 
       "color": "#ffd54f",
-      "description": "Digital wellness, mental health, and technology balance"
+      "description": "Explore icons and symbols of popular culture"
     },
     {
-      "name": "Career & Technology",
+      "name": "Health & Performance",
+      "color": "#e91e63",
+      "description": "Science-backed approaches to improving performance"
+    },
+    {
+      "name": "Digital Culture & Media",
+      "color": "#9c27b0", 
+      "description": "Modern media, gaming, and digital communication"
+    },
+    {
+      "name": "Personal Development",
+      "color": "#ff9800",
+      "description": "Skills and strategies for personal growth"
+    },
+    {
+      "name": "Adventure & Discovery",
       "color": "#00bcd4",
-      "description": "Future careers, AI impact, and professional development"
-    },
-    {
-      "name": "Culture & Identity",
-      "color": "#9c27b0",
-      "description": "Cultural preservation and identity in global digital spaces"
+      "description": "Exploration, mystery, and human connection"
     }
   ],
   "ui": {
     "themes": {
       "default": {
         "primary": "#1e3a5f",
-        "secondary": "#26a69a", 
-        "accent": "#ffd54f",
+        "secondary": "#26a69a",
+        "accent": "#ffd54f", 
         "success": "#66bb6a",
         "error": "#ef5350"
-      },
-      "dark": {
-        "primary": "#0a1628",
-        "secondary": "#1a237e",
-        "accent": "#ffc107",
-        "success": "#4caf50", 
-        "error": "#f44336"
       }
     },
     "animations": {
@@ -323,7 +221,7 @@
     },
     "layout": {
       "maxWidth": "1400px",
-      "sidebarWidth": "350px",
+      "sidebarWidth": "350px", 
       "mobileBreakpoint": "768px"
     }
   },
