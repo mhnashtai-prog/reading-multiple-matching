@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,6 +83,16 @@
             background: var(--secondary-teal);
             transform: translateY(-2px);
         }
+
+        .test-selector {
+            background: var(--accent-gold);
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .test-selector:hover {
+            background: #ffcc02;
+        }
         
         /* Main Container */
         .container {
@@ -150,6 +159,7 @@
             font-size: 1rem;
             line-height: 1.8;
             margin-bottom: 20px;
+            white-space: pre-wrap;
         }
         
         .gap {
@@ -377,6 +387,42 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
         
+        /* Test Navigation */
+        .test-nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-left: 15px;
+        }
+
+        .test-nav button {
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            color: var(--text-light);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .test-nav button:hover:not(:disabled) {
+            background: var(--secondary-teal);
+            transform: scale(1.1);
+        }
+
+        .test-nav button.active {
+            background: var(--accent-gold);
+            color: var(--primary-blue);
+        }
+
+        .test-nav button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -387,6 +433,8 @@
             
             .header {
                 padding: 15px 20px;
+                flex-wrap: wrap;
+                gap: 10px;
             }
             
             .constellation-area {
@@ -407,6 +455,11 @@
             
             .paragraph-option {
                 padding: 12px;
+            }
+
+            .test-nav {
+                margin-left: 0;
+                margin-top: 10px;
             }
         }
         
@@ -437,6 +490,11 @@
                 transform: translate(-50%, -50%) scale(1);
             }
         }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -448,6 +506,16 @@
             <a href="index.html" class="nav-btn">
                 <i class="fas fa-home"></i> Home
             </a>
+            <select class="nav-btn test-selector" id="test-selector">
+                <option value="1">Test 1: Blind Runner</option>
+                <option value="2">Test 2: Hollywood Sign</option>
+                <option value="3">Test 3: Music & Running</option>
+                <option value="4">Test 4: Grand Prix Driver</option>
+                <option value="5">Test 5: Video Games</option>
+                <option value="6">Test 6: Stand-up Comedy</option>
+                <option value="7">Test 7: Guinness Records</option>
+                <option value="8">Test 8: Messages in Bottles</option>
+            </select>
             <button class="nav-btn" id="hint-btn">
                 <i class="fas fa-lightbulb"></i> Hint
             </button>
@@ -519,33 +587,62 @@
     </div>
 
     <script>
-        // Sample test data - will be replaced with dynamic loading
-        const sampleTest = {
-            id: 1,
-            title: "Social Media and Mental Health",
-            passage: `Social media platforms have fundamentally changed how young people communicate and view themselves. <span class="gap" data-gap="1">[1]</span> Research conducted by the University of Cambridge shows that teenagers who spend more than three hours daily on social platforms report significantly higher levels of anxiety and depression. <span class="gap" data-gap="2">[2]</span> 
-            
-The addictive nature of these platforms is not accidental. <span class="gap" data-gap="3">[3]</span> Every like, comment, and share triggers a small release of dopamine in the brain, creating a cycle that keeps users constantly checking for updates. <span class="gap" data-gap="4">[4]</span>
-            
-However, social media isn't entirely negative. <span class="gap" data-gap="5">[5]</span> Many young people have found supportive communities online, particularly those dealing with mental health issues, LGBTQ+ identity, or other challenges that might make them feel isolated in their offline lives. <span class="gap" data-gap="6">[6]</span>`,
-            options: [
-                "A. This constant comparison with others' carefully curated lives can lead to feelings of inadequacy and low self-esteem.",
-                "B. Companies employ teams of neuroscientists and behavioral psychologists to make their apps as engaging as possible.",
-                "C. The key is teaching young people to use these tools mindfully rather than being controlled by them.",
-                "D. These online spaces provide valuable resources and connections that might not be available locally.",
-                "E. The impact becomes even more pronounced during crucial developmental years when identity formation is at its peak.",
-                "F. Digital wellness programs in schools are beginning to address these concerns with some success.",
-                "G. This suggests that the problem isn't the technology itself, but how we're using it."
-            ],
-            answers: [1, 5, 2, 7, 4, 3] // Correct gap-to-option mappings
-        };
-
-        let currentTest = sampleTest;
+        let currentTest = null;
+        let currentTestId = 1;
         let userAnswers = new Array(6).fill(null);
         let usedOptions = new Set();
 
+        // Test file mapping
+        const testFiles = {
+            1: 'test_01_blind_runner.json',
+            2: 'test_02_hollywood_sign.json', 
+            3: 'test_03_music_running.json',
+            4: 'test_04_grand_prix_driver.json',
+            5: 'test_05_video_games.json',
+            6: 'test_06_standup_comedy.json',
+            7: 'test_07_guinness_records.json',
+            8: 'test_08_messages_bottles.json'
+        };
+
+        // Load test from JSON file
+        async function loadTest(testId) {
+            try {
+                document.body.classList.add('loading');
+                document.getElementById('passage-title').textContent = 'Loading Test...';
+                document.getElementById('passage-text').innerHTML = '<p>Loading constellation interface...</p>';
+                
+                const fileName = testFiles[testId];
+                if (!fileName) {
+                    throw new Error(`Test ${testId} not found`);
+                }
+                
+                const response = await fetch(`data/passages/${fileName}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load test: ${response.statusText}`);
+                }
+                
+                currentTest = await response.json();
+                currentTestId = testId;
+                
+                // Reset state for new test
+                userAnswers = new Array(6).fill(null);
+                usedOptions.clear();
+                
+                initializeTest();
+                document.body.classList.remove('loading');
+                
+            } catch (error) {
+                console.error('Error loading test:', error);
+                document.getElementById('passage-title').textContent = 'Error Loading Test';
+                document.getElementById('passage-text').innerHTML = `<p style="color: var(--error-red);">Failed to load test. Please check that the test files are in the data/passages/ folder.</p>`;
+                document.body.classList.remove('loading');
+            }
+        }
+
         // Initialize the interface
         function initializeTest() {
+            if (!currentTest) return;
+            
             document.getElementById('passage-title').textContent = currentTest.title;
             document.getElementById('passage-text').innerHTML = currentTest.passage;
             document.getElementById('total-gaps').textContent = currentTest.answers.length;
@@ -553,6 +650,7 @@ However, social media isn't entirely negative. <span class="gap" data-gap="5">[5
             renderOptions();
             setupDragAndDrop();
             updateProgress();
+            resetControls();
         }
 
         // Render paragraph options
@@ -616,6 +714,15 @@ However, social media isn't entirely negative. <span class="gap" data-gap="5">[5
                     const gapIndex = parseInt(gap.dataset.gap) - 1;
                     const optionIndex = parseInt(draggedElement.dataset.option);
                     
+                    // If gap is already filled, free the previous option
+                    if (userAnswers[gapIndex] !== null) {
+                        const prevOption = document.querySelector(`[data-option="${userAnswers[gapIndex]}"]`);
+                        if (prevOption) {
+                            prevOption.classList.remove('used');
+                            usedOptions.delete(userAnswers[gapIndex]);
+                        }
+                    }
+                    
                     // Place the answer
                     fillGap(gapIndex, optionIndex, draggedElement.textContent);
                     
@@ -676,6 +783,8 @@ However, social media isn't entirely negative. <span class="gap" data-gap="5">[5
 
         // Check answers
         function checkAnswers() {
+            if (!currentTest) return;
+            
             let correct = 0;
             const gaps = document.querySelectorAll('.gap');
             
@@ -694,7 +803,8 @@ However, social media isn't entirely negative. <span class="gap" data-gap="5">[5
             const score = Math.round((correct / userAnswers.length) * 100);
             
             // Show results
-            alert(`You scored ${score}%! \nCorrect: ${correct}/${userAnswers.length}`);
+            const resultMessage = `Cambridge B2 Part 6 Result:\nYou scored ${score}%!\nCorrect: ${correct}/${userAnswers.length}\n\n${score >= 70 ? '🎉 Excellent work!' : '💪 Keep practicing!'}`;
+            alert(resultMessage);
             
             if (score >= 70) {
                 document.getElementById('next-btn').disabled = false;
@@ -710,31 +820,50 @@ However, social media isn't entirely negative. <span class="gap" data-gap="5">[5
             document.querySelectorAll('.gap').forEach(gap => {
                 gap.textContent = `[${gap.dataset.gap}]`;
                 gap.classList.remove('filled', 'error');
+                gap.style.borderColor = 'var(--secondary-teal)';
             });
             
             document.querySelectorAll('.paragraph-option').forEach(option => {
                 option.classList.remove('used');
             });
             
+            resetControls();
+            updateProgress();
+        }
+
+        // Reset control buttons
+        function resetControls() {
             document.getElementById('check-btn').style.background = 'var(--secondary-teal)';
             document.getElementById('check-btn').innerHTML = '<i class="fas fa-check"></i> Check Answers';
             document.getElementById('next-btn').disabled = true;
-            
-            updateProgress();
+            document.getElementById('next-btn').style.background = 'var(--accent-gold)';
+        }
+
+        // Load next test
+        function loadNextTest() {
+            const nextId = currentTestId < 8 ? currentTestId + 1 : 1;
+            document.getElementById('test-selector').value = nextId;
+            loadTest(nextId);
         }
 
         // Event listeners
         document.getElementById('check-btn').addEventListener('click', checkAnswers);
-        document.getElementById('next-btn').addEventListener('click', () => {
-            alert('Next test feature coming soon!');
-        });
+        document.getElementById('next-btn').addEventListener('click', loadNextTest);
         document.getElementById('reset-btn').addEventListener('click', resetTest);
         document.getElementById('hint-btn').addEventListener('click', () => {
-            alert('Hint: Look for connecting words and logical flow between paragraphs!');
+            alert('💡 Cambridge B2 Part 6 Strategy:\n\n• Look for logical connections between sentences\n• Pay attention to pronouns and reference words\n• Check for chronological or cause-effect relationships\n• Consider the overall flow and coherence\n• One option will not be used!');
+        });
+
+        // Test selector
+        document.getElementById('test-selector').addEventListener('change', (e) => {
+            const testId = parseInt(e.target.value);
+            loadTest(testId);
         });
 
         // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', initializeTest);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTest(1); // Start with test 1
+        });
     </script>
 </body>
 </html>
