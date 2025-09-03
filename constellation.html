@@ -1,1 +1,740 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow State Reading - Test Interface</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e3a5f">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #1e3a5f;
+            --secondary-teal: #26a69a;
+            --accent-gold: #ffd54f;
+            --success-green: #66bb6a;
+            --error-red: #ef5350;
+            --background-dark: #0a1628;
+            --text-light: #ffffff;
+            --card-glass: rgba(255, 255, 255, 0.1);
+            --card-border: rgba(255, 255, 255, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--background-dark) 0%, var(--primary-blue) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        /* Header Navigation */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-small {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+        
+        .nav-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .nav-btn {
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            color: var(--text-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .nav-btn:hover {
+            background: var(--secondary-teal);
+            transform: translateY(-2px);
+        }
+        
+        /* Main Container */
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+        }
+        
+        /* Constellation Area */
+        .constellation-area {
+            background: var(--card-glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .constellation-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, var(--accent-gold), transparent),
+                radial-gradient(2px 2px at 40px 70px, var(--secondary-teal), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--text-light), transparent),
+                radial-gradient(1px 1px at 130px 80px, var(--accent-gold), transparent),
+                radial-gradient(2px 2px at 160px 30px, var(--secondary-teal), transparent);
+            background-size: 200px 100px;
+            opacity: 0.3;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+        
+        .passage-container {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .passage-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--accent-gold);
+        }
+        
+        .passage-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .gap {
+            display: inline-block;
+            min-width: 60px;
+            min-height: 30px;
+            border: 2px dashed var(--secondary-teal);
+            border-radius: 8px;
+            background: rgba(38, 166, 154, 0.1);
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            vertical-align: top;
+        }
+        
+        .gap:hover {
+            border-color: var(--accent-gold);
+            background: rgba(255, 213, 79, 0.2);
+        }
+        
+        .gap.filled {
+            border-color: var(--success-green);
+            background: rgba(102, 187, 106, 0.2);
+            border-style: solid;
+        }
+        
+        .gap.error {
+            border-color: var(--error-red);
+            background: rgba(239, 83, 80, 0.2);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .progress-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            padding: 20px;
+        }
+        
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--accent-gold);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-teal), var(--accent-gold));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .progress-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Paragraph Options */
+        .options-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        .options-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .paragraph-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: move;
+            transition: all 0.3s ease;
+            user-select: none;
+            position: relative;
+        }
+        
+        .paragraph-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--secondary-teal);
+            transform: translateY(-2px);
+        }
+        
+        .paragraph-option.dragging {
+            opacity: 0.7;
+            transform: rotate(5deg);
+            z-index: 1000;
+        }
+        
+        .paragraph-option.used {
+            opacity: 0.4;
+            background: rgba(102, 187, 106, 0.1);
+            border-color: var(--success-green);
+            cursor: not-allowed;
+        }
+        
+        .paragraph-letter {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: var(--secondary-teal);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-weight: 600;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .paragraph-text {
+            display: inline;
+            line-height: 1.6;
+        }
+        
+        /* Control Buttons */
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            background: var(--secondary-teal);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+        
+        .btn.primary {
+            background: var(--accent-gold);
+        }
+        
+        .btn.primary:hover {
+            background: #ffcc02;
+        }
+        
+        .btn:disabled {
+            background: rgba(255, 255, 255, 0.2);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Confidence Meter */
+        .confidence-meter {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .confidence-label {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        
+        .confidence-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            appearance: none;
+            outline: none;
+        }
+        
+        .confidence-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .constellation-area {
+                padding: 20px;
+            }
+            
+            .passage-container {
+                padding: 20px;
+            }
+            
+            .sidebar {
+                order: -1;
+            }
+            
+            .options-card {
+                max-height: none;
+            }
+            
+            .paragraph-option {
+                padding: 12px;
+            }
+        }
+        
+        /* Success Animation */
+        .success-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: var(--success-green);
+            z-index: 1001;
+            animation: successPop 1s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes successPop {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-small">
+            <i class="fas fa-star"></i> Flow State Reading
+        </div>
+        <nav class="nav-controls">
+            <a href="index.html" class="nav-btn">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <button class="nav-btn" id="hint-btn">
+                <i class="fas fa-lightbulb"></i> Hint
+            </button>
+            <button class="nav-btn" id="reset-btn">
+                <i class="fas fa-refresh"></i> Reset
+            </button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Main Constellation Area -->
+        <main class="constellation-area">
+            <div class="constellation-bg"></div>
+            
+            <div class="passage-container" id="passage-container">
+                <h2 class="passage-title" id="passage-title">Loading Test...</h2>
+                <div class="passage-text" id="passage-text">
+                    <p>Initializing constellation interface...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Progress Card -->
+            <div class="progress-card">
+                <h3 class="progress-title">
+                    <i class="fas fa-chart-line"></i> Progress
+                </h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p class="progress-text">
+                    <span id="completed-count">0</span> of <span id="total-gaps">6</span> gaps filled
+                </p>
+            </div>
+
+            <!-- Paragraph Options -->
+            <div class="options-card">
+                <h3 class="options-title">
+                    <i class="fas fa-puzzle-piece"></i> Paragraph Options
+                </h3>
+                <div id="paragraph-options">
+                    <!-- Options will be loaded here -->
+                </div>
+                
+                <!-- Confidence Meter -->
+                <div class="confidence-meter">
+                    <label class="confidence-label">Confidence Level</label>
+                    <input type="range" class="confidence-slider" id="confidence-slider" 
+                           min="1" max="5" value="3">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; opacity: 0.6; margin-top: 5px;">
+                        <span>Unsure</span>
+                        <span>Very Sure</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button class="btn" id="check-btn">
+                    <i class="fas fa-check"></i> Check Answers
+                </button>
+                <button class="btn primary" id="next-btn" disabled>
+                    <i class="fas fa-arrow-right"></i> Next Test
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Sample test data - will be replaced with dynamic loading
+        const sampleTest = {
+            id: 1,
+            title: "Social Media and Mental Health",
+            passage: `Social media platforms have fundamentally changed how young people communicate and view themselves. <span class="gap" data-gap="1">[1]</span> Research conducted by the University of Cambridge shows that teenagers who spend more than three hours daily on social platforms report significantly higher levels of anxiety and depression. <span class="gap" data-gap="2">[2]</span> 
+            
+The addictive nature of these platforms is not accidental. <span class="gap" data-gap="3">[3]</span> Every like, comment, and share triggers a small release of dopamine in the brain, creating a cycle that keeps users constantly checking for updates. <span class="gap" data-gap="4">[4]</span>
+            
+However, social media isn't entirely negative. <span class="gap" data-gap="5">[5]</span> Many young people have found supportive communities online, particularly those dealing with mental health issues, LGBTQ+ identity, or other challenges that might make them feel isolated in their offline lives. <span class="gap" data-gap="6">[6]</span>`,
+            options: [
+                "A. This constant comparison with others' carefully curated lives can lead to feelings of inadequacy and low self-esteem.",
+                "B. Companies employ teams of neuroscientists and behavioral psychologists to make their apps as engaging as possible.",
+                "C. The key is teaching young people to use these tools mindfully rather than being controlled by them.",
+                "D. These online spaces provide valuable resources and connections that might not be available locally.",
+                "E. The impact becomes even more pronounced during crucial developmental years when identity formation is at its peak.",
+                "F. Digital wellness programs in schools are beginning to address these concerns with some success.",
+                "G. This suggests that the problem isn't the technology itself, but how we're using it."
+            ],
+            answers: [1, 5, 2, 7, 4, 3] // Correct gap-to-option mappings
+        };
+
+        let currentTest = sampleTest;
+        let userAnswers = new Array(6).fill(null);
+        let usedOptions = new Set();
+
+        // Initialize the interface
+        function initializeTest() {
+            document.getElementById('passage-title').textContent = currentTest.title;
+            document.getElementById('passage-text').innerHTML = currentTest.passage;
+            document.getElementById('total-gaps').textContent = currentTest.answers.length;
+            
+            renderOptions();
+            setupDragAndDrop();
+            updateProgress();
+        }
+
+        // Render paragraph options
+        function renderOptions() {
+            const container = document.getElementById('paragraph-options');
+            container.innerHTML = '';
+            
+            currentTest.options.forEach((option, index) => {
+                const div = document.createElement('div');
+                div.className = 'paragraph-option';
+                div.draggable = true;
+                div.dataset.option = index + 1;
+                
+                const letter = String.fromCharCode(65 + index);
+                div.innerHTML = `
+                    <span class="paragraph-letter">${letter}</span>
+                    <span class="paragraph-text">${option.substring(3)}</span>
+                `;
+                
+                container.appendChild(div);
+            });
+        }
+
+        // Setup drag and drop functionality
+        function setupDragAndDrop() {
+            const options = document.querySelectorAll('.paragraph-option');
+            const gaps = document.querySelectorAll('.gap');
+            
+            let draggedElement = null;
+            
+            options.forEach(option => {
+                option.addEventListener('dragstart', (e) => {
+                    if (option.classList.contains('used')) return false;
+                    
+                    draggedElement = option;
+                    option.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                
+                option.addEventListener('dragend', () => {
+                    option.classList.remove('dragging');
+                    draggedElement = null;
+                });
+            });
+            
+            gaps.forEach(gap => {
+                gap.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    gap.style.borderColor = 'var(--accent-gold)';
+                });
+                
+                gap.addEventListener('dragleave', () => {
+                    gap.style.borderColor = 'var(--secondary-teal)';
+                });
+                
+                gap.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    if (!draggedElement) return;
+                    
+                    const gapIndex = parseInt(gap.dataset.gap) - 1;
+                    const optionIndex = parseInt(draggedElement.dataset.option);
+                    
+                    // Place the answer
+                    fillGap(gapIndex, optionIndex, draggedElement.textContent);
+                    
+                    // Mark option as used
+                    draggedElement.classList.add('used');
+                    usedOptions.add(optionIndex);
+                    
+                    // Reset gap styling
+                    gap.style.borderColor = 'var(--success-green)';
+                    
+                    // Success feedback
+                    showSuccessAnimation(gap);
+                    
+                    updateProgress();
+                });
+            });
+        }
+
+        // Fill a gap with an answer
+        function fillGap(gapIndex, optionIndex, text) {
+            userAnswers[gapIndex] = optionIndex;
+            const gap = document.querySelector(`[data-gap="${gapIndex + 1}"]`);
+            gap.textContent = text;
+            gap.classList.add('filled');
+        }
+
+        // Show success animation
+        function showSuccessAnimation(element) {
+            const rect = element.getBoundingClientRect();
+            const animation = document.createElement('div');
+            animation.className = 'success-animation';
+            animation.innerHTML = '✨';
+            animation.style.left = rect.left + rect.width/2 + 'px';
+            animation.style.top = rect.top + rect.height/2 + 'px';
+            animation.style.transform = 'none';
+            
+            document.body.appendChild(animation);
+            
+            setTimeout(() => {
+                document.body.removeChild(animation);
+            }, 1000);
+        }
+
+        // Update progress
+        function updateProgress() {
+            const completed = userAnswers.filter(answer => answer !== null).length;
+            const total = userAnswers.length;
+            const percentage = (completed / total) * 100;
+            
+            document.getElementById('completed-count').textContent = completed;
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            
+            if (completed === total) {
+                document.getElementById('check-btn').style.background = 'var(--success-green)';
+                document.getElementById('check-btn').innerHTML = '<i class="fas fa-check-circle"></i> Complete!';
+            }
+        }
+
+        // Check answers
+        function checkAnswers() {
+            let correct = 0;
+            const gaps = document.querySelectorAll('.gap');
+            
+            userAnswers.forEach((answer, index) => {
+                const gap = gaps[index];
+                gap.classList.remove('error');
+                
+                if (answer === currentTest.answers[index]) {
+                    correct++;
+                    gap.classList.add('filled');
+                } else if (answer !== null) {
+                    gap.classList.add('error');
+                }
+            });
+            
+            const score = Math.round((correct / userAnswers.length) * 100);
+            
+            // Show results
+            alert(`You scored ${score}%! \nCorrect: ${correct}/${userAnswers.length}`);
+            
+            if (score >= 70) {
+                document.getElementById('next-btn').disabled = false;
+                document.getElementById('next-btn').style.background = 'var(--success-green)';
+            }
+        }
+
+        // Reset test
+        function resetTest() {
+            userAnswers = new Array(6).fill(null);
+            usedOptions.clear();
+            
+            document.querySelectorAll('.gap').forEach(gap => {
+                gap.textContent = `[${gap.dataset.gap}]`;
+                gap.classList.remove('filled', 'error');
+            });
+            
+            document.querySelectorAll('.paragraph-option').forEach(option => {
+                option.classList.remove('used');
+            });
+            
+            document.getElementById('check-btn').style.background = 'var(--secondary-teal)';
+            document.getElementById('check-btn').innerHTML = '<i class="fas fa-check"></i> Check Answers';
+            document.getElementById('next-btn').disabled = true;
+            
+            updateProgress();
+        }
+
+        // Event listeners
+        document.getElementById('check-btn').addEventListener('click', checkAnswers);
+        document.getElementById('next-btn').addEventListener('click', () => {
+            alert('Next test feature coming soon!');
+        });
+        document.getElementById('reset-btn').addEventListener('click', resetTest);
+        document.getElementById('hint-btn').addEventListener('click', () => {
+            alert('Hint: Look for connecting words and logical flow between paragraphs!');
+        });
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeTest);
+    </script>
+</body>
+</html>
