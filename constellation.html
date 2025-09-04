@@ -479,7 +479,7 @@
     <header class="header">
         <div class="author-credit">By Majid Nashai</div>
         <div class="logo-section">
-            <div class="brand-title">INTUNITY</div>
+            <div class="brand-title">INTUITY</div>
             <div class="exam-info">Reading Comprehension • Part 6</div>
         </div>
         <nav class="nav-controls">
@@ -755,10 +755,16 @@ Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4
             }
         }
 
+        // Load next test
+        function loadNextTest() {
+            const nextId = currentTestId < 8 ? currentTestId + 1 : 1;
+            document.getElementById('test-selector').value = nextId;
+            loadTest(nextId);
+        }
+
         // Reset test
         function resetTest() {
-            userAnswers = new Array(6).fill(null);
-            usedOptions.clear();
+            resetTestState();
             
             document.querySelectorAll('.gap').forEach((gap, index) => {
                 gap.textContent = `[${index + 1}]`;
@@ -766,18 +772,7 @@ Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4
             });
             
             updateProgress();
-            document.getElementById('next-btn').disabled = false;
-        }
-
-        // Load next test
-        function loadNextTest() {
-            const nextId = currentTestId < 8 ? currentTestId + 1 : 1;
-            currentTestId = nextId;
-            document.getElementById('test-selector').value = nextId;
-            
-            // For demo, just reset current test
-            resetTest();
-            alert(`Loading Test ${nextId}...`);
+            resetControls();
         }
 
         // Event listeners
@@ -793,9 +788,7 @@ Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4
 
         document.getElementById('test-selector').addEventListener('change', (e) => {
             const testId = parseInt(e.target.value);
-            currentTestId = testId;
-            resetTest();
-            alert(`Loading Test ${testId}...`);
+            loadTest(testId);
         });
 
         // Close modal when clicking overlay
@@ -806,7 +799,13 @@ Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4
         });
 
         // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', initializeTest);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get test ID from URL or default to 1
+            const urlParams = new URLSearchParams(window.location.search);
+            const testId = parseInt(urlParams.get('test')) || 1;
+            document.getElementById('test-selector').value = testId;
+            loadTest(testId);
+        });
     </script>
 </body>
 </html>
