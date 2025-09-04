@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INTUITY - Reading Comprehension Part 6</title>
+    <title>INTUNITY - Reading Comprehension Part 6</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a5f">
     
@@ -457,29 +457,13 @@
                 font-size: 0.9rem;
             }
         }
-        
-        /* Loading States */
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        
-        .pulse {
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="author-credit">By Majid Nashai</div>
         <div class="logo-section">
-            <div class="brand-title">INTUITY</div>
+            <div class="brand-title">INTUNITY</div>
             <div class="exam-info">Reading Comprehension • Part 6</div>
         </div>
         <nav class="nav-controls">
@@ -491,10 +475,6 @@
                 <option value="2">Test 2: Hollywood Sign</option>
                 <option value="3">Test 3: Music & Running</option>
                 <option value="4">Test 4: Grand Prix Driver</option>
-                <option value="5">Test 5: Video Games</option>
-                <option value="6">Test 6: Stand-up Comedy</option>
-                <option value="7">Test 7: Guinness Records</option>
-                <option value="8">Test 8: Messages in Bottles</option>
             </select>
             <button class="nav-btn" id="hint-btn">
                 <i class="fas fa-lightbulb"></i>
@@ -567,41 +547,143 @@
         let usedOptions = new Set();
         let currentGapIndex = -1;
 
-        // Sample test data for demonstration
-        const sampleTest = {
-            id: 1,
-            title: "Breaking Barriers: The Blind Runner's Journey",
-            passage: `Running marathons poses extreme challenges for anyone, but for those who are blind, the challenges are even greater. <span class='gap' data-gap='1'>[1]</span>
+        // Embedded test data - no external files needed
+        const TESTS = {
+            1: {
+                id: 1,
+                title: "Breaking Barriers: The Blind Runner's Journey",
+                passage: `Running marathons, a race of 42 km, has become increasingly popular. This distance poses extreme physical and mental challenges for anyone, but for those who have been blind since birth or have lost their sight later in life, the challenges are even greater. <span class='gap' data-gap='1'>[1]</span>
 
-For Simon, now 29, he has been overcoming this disability by teaching himself to run solo on the streets. <span class='gap' data-gap='2'>[2]</span> 'I'll have right-angled cornering obstacles,' he explains.
+For the blind runner Simon, now 29, he has been overcoming this disability to compete in marathons, ultra-marathons and other races with runners who are not as his guides, and also, rather uniquely, by teaching himself to run solo, one on the streets. <span class='gap' data-gap='2'>[2]</span> 'I'll have right-angled cornering obstacles,' he thought. 'If I have significant running obstacles,' he explains. <span class='gap' data-gap='3'>[3]</span> Then he got bored again and wanted to try running solo again.
 
-Then he got bored and wanted to try running solo again. Weeks of gradual exploration followed, walking a route over and over. <span class='gap' data-gap='3'>[3]</span> This information could then be transferred to a smartphone.
+Weeks of gradual exploration followed, walking a route over and over again. 'I break down sections into manageable parts with a heavy main road. He would measure the distance to the next obstacle, identify where each turn was located, stop off the area using a smartphone app. <span class='gap' data-gap='4'>[4]</span> This information could then be transferred to a smartphone, enabling his phone to call out directions into his earphones.
 
-Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4'>[4]</span> When I first started, I had to run very cautiously to prevent falls.
+Now Simon knows precisely when all steps on the roads. Simon has been able gradually to increase the pace and can now run from six to thirty miles and run for 60 miles. <span class='gap' data-gap='5'>[5]</span> Now it has evolved quietly and steadily. <span class='gap' data-gap='6'>[6]</span>
 
-<span class='gap' data-gap='5'>[5]</span> Now it has evolved steadily, and Simon can run distances up to thirty miles. For Simon, the real thrill comes from being able to compete successfully in races. <span class='gap' data-gap='6'>[6]</span>`,
-            options: [
-                "A. These provide the familiarity and consistency essential for the blind runner.",
-                "B. Their support gave him extra confidence regarding his changing surroundings.",
-                "C. Simon believes the feelings of liberation outweigh any anxiety over such dangers.",
-                "D. He began by training on football pitches behind his house, running between goalposts.",
-                "E. It gives him a great opportunity to run with everyone.",
-                "F. That's not to say the learning curve has been without incident.",
-                "G. As a result, he was able to memorise a set five-kilometre course."
-            ],
-            answers: [3, 1, 7, 6, 2, 4] // Randomized answers
+But for Simon the real thrill and motivation for training come from simply being able to compete successfully in races. 'I don't think this but I'm blind,' he says. 'But at the same time I would rather not have people really disappointed and not belong into a special group. Being visually impaired doesn't mean you can't run.'`,
+                options: [
+                    "A. These provide the familiarity and consistency essential for the blind runner.",
+                    "B. Their support gave him extra confidence regarding his changing surroundings.", 
+                    "C. Simon believes the feelings of liberation and independence he gets from running solo far outweigh any anxiety over such dangers.",
+                    "D. He began by training on football pitches behind his house, running between the goalposts.",
+                    "E. It gives him a great opportunity to run with everyone.",
+                    "F. That's not to say the learning curve has been without incident.",
+                    "G. As a result of this slow experimentation, he was able to memorise a set five-kilometre course."
+                ],
+                answers: [3, 1, 6, 7, 2, 4]
+            },
+            2: {
+                id: 2,
+                title: "Icon of Dreams: The Hollywood Sign Story",
+                passage: `I am responsible for maintaining and protecting the sign. <span class='gap' data-gap='1'>[1]</span> When I first arrived in 1996, security was pretty low-tech – we put up a fence around the sign to stop trespassers messing with it. But people just jumped over the fence. The back of the sign was black with graffiti – there was barbed wire across it, but they still got through. So I decided to improve the effectiveness of the security.
+
+Now we have motion-detectors and cameras. Everything goes via the internet to a dedicated surveillance team watching various structures around the city. <span class='gap' data-gap='2'>[2]</span> But you can get a closer look at one of my regular tours.
+
+It's also important to protect the sign's image as it's used in loads of adverts and news pieces. There's a simple rule about how the sign can be used. <span class='gap' data-gap='3'>[3]</span> However, it mostly comes down to the look. To take a different example, if you used 'Hollywood' in the name of your bakery, it would depend what the word looked like, whether it was just spelled out or whether the image of the sign itself was used.
+
+People call up with the most ridiculous ideas. They want to light the sign, paint it pink, or cover it in something to promote their product. You'll get a really enthusiastic marketing manager on the phone, terribly excited because they think they're the first person to think of this or that idea. <span class='gap' data-gap='4'>[4]</span> That's because we don't like to change the image and we hope it will have the same significance for generations to come.
+
+In the past, TV started to become popular and some Hollywood film studios closed, but then TV companies moved in and grew them over. At this point, the city of Los Angeles decided to renovate the sign. The letters spelling 'land' were removed and it was repaired. Modern Hollywood was born. The letters in the sign weren't straight and still aren't. <span class='gap' data-gap='5'>[5]</span> They follow the shape of Mount Lee as part of their base.
+
+<span class='gap' data-gap='6'>[6]</span> I can't say they stopped by to visit and ran round. But what did other visitors make of the actual sign?`,
+                options: [
+                    "A. Even so, people still try to climb over the barrier, mostly innocent tourists surprised that you can't walk right up to the sign.",
+                    "B. They mostly get turned down.",
+                    "C. If one of them ever fell down I would have to put it back up at exactly the same angle.",
+                    "D. We used to have real problems.",
+                    "E. Things have changed a lot since then.",
+                    "F. It's still there, of course, and is a symbol of the entertainment world.",
+                    "G. If the purpose is commercial – to promote something – payment has to be made."
+                ],
+                answers: [4, 1, 7, 2, 3, 5]
+            },
+            3: {
+                id: 3,
+                title: "Beat the Clock: How Music Boosts Athletic Performance", 
+                passage: `An expert on the effects of music on exercise, Dr Costas Karageorghis, claims that listening to music while running can boost performance by up to 15%. <span class='gap' data-gap='1'>[1]</span> With the right beats, you find yourself running to the beat, which helps. It also brings out people to cheer you on. Rosie Bradford was also a convert: 'As we ran past one band and they started playing Those Boots Rise Music for Digging, everybody suddenly went faster.'
+
+The only person I found who was less than happy with the music was Luis Lloyd. 'If there wasn't enough of it, and I found it wasn't loud enough to film with an MP3 player,' she said. <span class='gap' data-gap='2'>[2]</span> Karageorghis is not surprised when I tell him. There are many advantages to listening to your own playlist, he says. <span class='gap' data-gap='3'>[3]</span>
+
+As I hung on to start my running, 4,000 other runners were preparing to test this theory. I was starting I sang in my head with the beat, making it easy to keep in rhythm. Usually when they are preparing, and be focus on exactly when they are running and prepare where is possible to be distracted from what is going on around them. <span class='gap' data-gap='4'>[4]</span> Apart from the song at the start, which I barely remember, I mostly remembered The Best Just As Good music during the course: but it was so loud it was embarrassing.
+
+Later I was told me there was a direct correlation between the quality of the music on the course and how fast I ran. <span class='gap' data-gap='5'>[5]</span> That quality, of course, is subjective. I remember the best-planned section as I ran past one band playing King of Leon's Your Hands. <span class='gap' data-gap='6'>[6]</span>
+
+Of course, the music wasn't the only thing there to help. It was also to help the beat tempo, but to provide a sense of occasion, drive out the pace and present it as a certain atmosphere.`,
+                options: [
+                    "A. I need my music all the time.",
+                    "B. I think they know why I found the music here so distracting.", 
+                    "C. I enjoyed that for a few moments, but both of them came and went in a flash.",
+                    "D. Along with some spring sunshine, it certainly achieved that.",
+                    "E. Someone else, though, may have found it uplifting.",
+                    "F. I was, in fact, taking my running pretty seriously at that time.",
+                    "G. The music here has been great for my performance."
+                ],
+                answers: [5, 2, 7, 1, 6, 3]
+            },
+            4: {
+                id: 4,
+                title: "Life in the Fast Lane: A Formula One Champion's Story",
+                passage: `I'm a great believer in success, in achieving whatever goal you set on a particular day, so whether I was practising on the track or swimming in the pool, I've always put my heart and soul into it.
+
+When I was learning my trade, racing go-karts as a teenager, I went after my helmet and race number like a maniac, and soon discovered everything had to be perfect. It was all about preparation. At 16 I graduated to Formula Ford, and I'd even get the car up in the garage and polish the underside until it was gleaming. <span class='gap' data-gap='1'>[1]</span> I made that point, jokingly, that if I ever rolled over in a race, I so wanted the world's cleanest underside in history.
+
+It may be that my quiet achievement of Formula One fuelled this obsession with neatness and cleanliness. <span class='gap' data-gap='2'>[2]</span> Racing is all about getting the extra tenth of a second. If you walk around a team factory it looks like a science laboratory. A Formula One factory couldn't be further from that. It's like something from another planet.
+
+Everything to aircraft standard and quality. And so it should be. If some single-out potential or some racks doesn't do people slouching around, that doesn't make a great impression. <span class='gap' data-gap='3'>[3]</span> It took you walk in and everyone's working hard and there's not a speck of dust anywhere, that's another matter.
+
+Polishing my helmet was a specific ritual I had. The race helmet is an important and prized possession. When you're starting out, you only have one helmet for several years and it can be a pricey piece of kit. <span class='gap' data-gap='4'>[4]</span> Once you're getting through probably a dozen or more expensive helmets each year. Normally I'd never have dreamed of wearing someone else's, but I still race 300 at the Monaco Grand Prix that year. I couldn't see properly.
+
+It may help that he'd second in the Brazilian Grand Prix with that same helmet and finished second in a different race. Four years later, Nelson said he wanted to swap another helmet with me. <span class='gap' data-gap='5'>[5]</span> There must be something in it. So I gave him a helmet and he gave me a signed one.
+
+Helmets are treasured and it's quite rare for me to give race ones to anyone. <span class='gap' data-gap='6'>[6]</span> I only do it if I liked someone recently, although we've known each other for many years.`,
+                options: [
+                    "A. I certainly took good care of mine as a result.",
+                    "B. You take for granted those you're closest to, and you make an effort with people you hardly know.",
+                    "C. But it was only natural for me to be so particular about cleanliness before racing.",
+                    "D. Think of a motor mechanic, and you think of oil and dirt, filthy overalls, grubby fingers.",
+                    "E. Some people said this was ridiculous because it wasn't as if anyone was ever going to see it.",
+                    "F. Perhaps I should be doing it as well.",
+                    "G. That's why all the teams try and compete hard with each other on presentation."
+                ],
+                answers: [5, 4, 7, 1, 6, 2]
+            }
         };
+
+        // Load test - no external files, uses embedded data
+        function loadTest(testId) {
+            console.log(`Loading test ${testId}`);
+            
+            currentTest = TESTS[testId];
+            if (!currentTest) {
+                console.error(`Test ${testId} not found`);
+                document.getElementById('passage-title').textContent = 'Test Not Found';
+                document.getElementById('passage-text').innerHTML = `<p style="color: var(--error-red);">Test ${testId} is not available.</p>`;
+                return;
+            }
+            
+            currentTestId = testId;
+            resetTestState();
+            initializeTest();
+            console.log(`Test ${testId} loaded successfully`);
+        }
+
+        // Reset test state
+        function resetTestState() {
+            userAnswers = new Array(6).fill(null);
+            usedOptions.clear();
+            currentGapIndex = -1;
+            closeModal();
+        }
 
         // Initialize interface
         function initializeTest() {
-            currentTest = sampleTest; // Using sample for demo
-            
             document.getElementById('passage-title').textContent = currentTest.title;
             document.getElementById('passage-text').innerHTML = currentTest.passage;
             document.getElementById('total-gaps').textContent = currentTest.answers.length;
             
             setupClickableGaps();
             updateProgress();
+            resetControls();
         }
 
         // Setup clickable gaps
@@ -609,6 +691,12 @@ Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4
             const gaps = document.querySelectorAll('.gap');
             
             gaps.forEach((gap, index) => {
+                // Remove existing listeners
+                gap.replaceWith(gap.cloneNode(true));
+            });
+
+            // Add fresh listeners
+            document.querySelectorAll('.gap').forEach((gap, index) => {
                 gap.addEventListener('click', () => {
                     currentGapIndex = index;
                     openGapSelector(index + 1);
@@ -674,16 +762,14 @@ Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4
             updateProgress();
             
             // Auto-advance to next unfilled gap
-            autoAdvanceToNextGap();
+            setTimeout(autoAdvanceToNextGap, 300);
         }
 
         // Auto-advance to next empty gap
         function autoAdvanceToNextGap() {
             for (let i = 0; i < userAnswers.length; i++) {
                 if (userAnswers[i] === null) {
-                    setTimeout(() => {
-                        openGapSelector(i + 1);
-                    }, 300);
+                    openGapSelector(i + 1);
                     return;
                 }
             }
@@ -755,11 +841,15 @@ Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4
             }
         }
 
-        // Load next test
-        function loadNextTest() {
-            const nextId = currentTestId < 8 ? currentTestId + 1 : 1;
-            document.getElementById('test-selector').value = nextId;
-            loadTest(nextId);
+        // Reset controls
+        function resetControls() {
+            const checkBtn = document.getElementById('check-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            checkBtn.style.background = 'var(--secondary-teal)';
+            checkBtn.innerHTML = '<i class="fas fa-check"></i> Check Answers';
+            nextBtn.disabled = false;
+            nextBtn.style.background = 'var(--accent-gold)';
         }
 
         // Reset test
@@ -773,6 +863,14 @@ Now Simon knows precisely every step on the roads. <span class='gap' data-gap='4
             
             updateProgress();
             resetControls();
+            setupClickableGaps();
+        }
+
+        // Load next test
+        function loadNextTest() {
+            const nextId = currentTestId < 4 ? currentTestId + 1 : 1;
+            document.getElementById('test-selector').value = nextId;
+            loadTest(nextId);
         }
 
         // Event listeners
